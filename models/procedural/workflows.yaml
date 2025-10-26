@@ -1,1 +1,45 @@
-# Procedural Workflows 
+# Procedural Workflows
+# Platform-independent workflow definitions
+
+workflows:
+  bootstrap_workflow:
+    name: Data Anonymization Workflow
+    steps:
+      - step1:
+          name: Data Ingestion
+          service: DataIngestionService
+          input: raw_data
+      - step2:
+          name: Pseudonymization
+          service: AnonymizationService
+          input: ingested_data
+      - step3:
+          name: Storage
+          service: StorageService
+          output: anonymized_data
+
+  detection_workflow:
+    name: Anomaly Detection Workflow
+    steps:
+      - step1:
+          name: Load Data
+          service: DataLoadingService
+      - step2:
+          name: Anomaly Detection
+          service: AnomalyDetectionService
+      - step3:
+          name: Alert Generation
+          service: AlertService
+
+  training_workflow:
+    name: Model Training Workflow
+    steps:
+      - step1:
+          name: Feature Engineering
+          service: FeatureService
+      - step2:
+          name: Model Training
+          service: MLService
+      - step3:
+          name: Model Evaluation
+          service: EvaluationService

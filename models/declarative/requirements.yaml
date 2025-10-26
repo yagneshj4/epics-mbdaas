@@ -1,1 +1,27 @@
-# Declarative Requirements 
+# Declarative Requirements
+# High-level business objectives
+
+project_name: EPICS MBDAaaS
+objective: Secure Big Data Analytics Platform
+
+requirements:
+  - privacy_preservation: true
+  - anomaly_detection: true
+  - scalability: high
+  - performance_target: low_latency
+
+data_sources:
+  - type: structured
+    format: CSV
+  - type: streaming
+    format: JSON
+
+privacy_requirements:
+  - pseudonymization: required
+  - differential_privacy: optional
+  - access_control: role_based
+
+security_requirements:
+  - encryption_at_rest: AES256
+  - encryption_in_transit: TLS1.3
+  - authentication: JWT

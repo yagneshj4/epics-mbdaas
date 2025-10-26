@@ -1,0 +1,72 @@
+# Spring Cloud Dataflow Pipeline Configuration
+# MBDAaaS Orchestration for EPICS
+
+pipelines:
+  bootstrap:
+    name: bootstrap-pipeline
+    description: Data anonymization and privacy protection
+    steps:
+      - name: data-ingestion
+        app: kafka-source
+        properties:
+          topic: raw-logs
+          bootstrap-servers: localhost:9092
+      
+      - name: pseudonymization
+        app: pseudonym-processor
+        properties:
+          columns: name,email,ssn
+          manager-path: data/hive/pseudonym_mappings
+      
+      - name: privbayes
+        app: privbayes-processor
+        properties:
+          epsilon: 0.1
+          sensitive-columns: age,salary
+      
+      - name: storage
+        app: hdfs-sink
+        properties:
+          path: data/anonymized/
+          format: csv
+
+  detection:
+    name: detection-pipeline
+    description: Anomaly detection for security incidents
+    steps:
+      - name: load-data
+        app: file-source
+        properties:
+          directory: data/anonymized/
+          pattern: "*.csv"
+      
+      - name: anomaly-detection
+        app: isolation-forest-processor
+        properties:
+          contamination: 0.1
+          random-state: 42
+      
+      - name: alert-generation
+        app: alert-sink
+        properties:
+          threshold: 0.8
+          notification: email
+          recipients: security-team@example.com
+
+monitoring:
+  enabled: true
+  metrics:
+    - pipeline-throughput
+    - anomaly-detection-rate
+    - privacy-budget-usage
+  
+security:
+  rbac:
+    enabled: true
+    roles:
+      - name: security_expert
+        permissions: [read, execute, monitor]
+      - name: data_scientist
+        permissions: [read, design, tune]
+      - name: business_analyst
+        permissions: [read, view_results]

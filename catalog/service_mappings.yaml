@@ -1,1 +1,43 @@
-# Service Mappings 
+# Service Catalog Mapping
+# Maps abstract services to concrete implementations
+
+services:
+  data_ingestion:
+    abstract: DataIngestionService
+    implementations:
+      - name: KafkaIngestion
+        platform: Apache Kafka
+        endpoint: kafka://localhost:9092
+      - name: HDFSIngestion
+        platform: Hadoop HDFS
+        endpoint: hdfs://localhost:9000
+
+  data_anonymization:
+    abstract: AnonymizationService
+    implementations:
+      - name: Pseudonymization
+        algorithm: SHA256
+        privacy_level: high
+      - name: PrivBayes
+        algorithm: Differential Privacy
+        epsilon: 0.1
+
+  machine_learning:
+    abstract: MLService
+    implementations:
+      - name: TensorFlowService
+        framework: TensorFlow
+        version: 2.20.0
+      - name: PyTorchService
+        framework: PyTorch
+        version: 2.9.0
+
+  security_monitoring:
+    abstract: MonitoringService
+    implementations:
+      - name: AnomalyDetection
+        algorithm: IsolationForest
+        threshold: 0.1
+      - name: ThreatDetection
+        algorithm: RandomForest
+        sensitivity: high
