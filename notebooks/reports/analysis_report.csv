@@ -1,0 +1,5 @@
+metric,value
+Total Records,100
+Anonymized,100
+Anomalies,10
+Privacy Level,High (ε=0.1)

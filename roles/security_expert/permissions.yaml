@@ -1,0 +1,22 @@
+# Security Expert Role - Full Access
+role: security_expert
+permissions:
+  data_access:
+    - raw_data: read, write
+    - anonymized_data: read, write, reverse_pseudonym
+    - hive_mappings: read, write, delete
+  
+  pipeline_access:
+    - bootstrap: execute, configure, monitor
+    - detection: execute, configure, monitor
+    - custom_pipelines: create, modify, delete
+  
+  system_access:
+    - privacy_budget: view, modify
+    - security_logs: read, export
+    - user_management: full_access
+  
+  monitoring:
+    - real_time_alerts: enabled
+    - audit_logs: full_access
+    - performance_metrics: full_access

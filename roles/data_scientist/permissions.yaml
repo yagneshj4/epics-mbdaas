@@ -1,0 +1,21 @@
+# Data Scientist Role - Analytics Access
+role: data_scientist
+permissions:
+  data_access:
+    - raw_data: no_access
+    - anonymized_data: read_only
+    - hive_mappings: no_access
+  
+  pipeline_access:
+    - bootstrap: monitor_only
+    - detection: configure, monitor
+    - custom_pipelines: create (with approval)
+  
+  system_access:
+    - privacy_budget: view_only
+    - security_logs: no_access
+    - model_training: full_access
+  
+  monitoring:
+    - real_time_alerts: enabled
+    - model_performance: full_access

@@ -1,0 +1,2 @@
+model_name,accuracy,features,training_date
+RandomForest,1.0,"['age', 'salary']",2025-10-26T11:23:59.593149
